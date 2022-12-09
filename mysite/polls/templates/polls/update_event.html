@@ -1,0 +1,24 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    <center>
+        {% if user == event.manager %}
+          <h1>Update Event: {{ event }}</h1>
+            <br>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <input type="submit" value="Event" class="btn btn-secondary">
+            </form>
+        {% else %}
+            <h2>Access Denied!</h2>
+            <p>Only The Event Is Manager Can Update This Event...</p>
+            <br>
+            <p>Login User: {{ user }}</p>
+            <p>Event Manager: {{ event.manager }}</p>
+        {% endif %}
+
+    </center>
+
+{% endblock %}

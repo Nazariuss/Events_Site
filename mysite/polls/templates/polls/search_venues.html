@@ -1,0 +1,27 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+        {% if searched %}
+            <h1>You Searched For {{ searched }}</h1><br>
+            {% for venue in venues %}
+
+                <div class="card">
+                  <div class="card-header"><h5><a href="{% url 'show_venue' venue.id %}">{{ venue }}</a></h5></div>
+                  <div class="card-body">
+                    <p class="card-text">
+                        Address: {{ venue.address }}<br>
+                        Zip Code: {{ venue.zip_code }}<br>
+                        Phone: {{ venue.phone }}<br>
+                        Email: {{ venue.email_address }}<br>
+                        <a href="{{ venue.web }}">{{ venue.web }}</a><br>
+                        Owner: {{ venue_owner }}<br>
+                    </p>
+                  </div>
+                </div>
+                 <br>
+            {% endfor %}
+        {% else %}
+            <h1>Hey! You Forgot To Search For A Venue</h1>
+        {% endif %}
+
+{% endblock %}

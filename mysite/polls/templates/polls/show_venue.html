@@ -1,0 +1,55 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    <center>
+        <div class="card">
+          <div class="card-header"><h5>{{ venue }}</h5></div>
+          <div class="card-body">
+            <p class="card-text">
+                Address: {{ venue.address }}<br>
+                Zip Code: {{ venue.zip_code }}<br>
+                Phone: {{ venue.phone }}<br>
+                Email: {{ venue.email_address }}<br>
+                <a href="{{ venue.web }}">{{ venue.web }}</a><br>
+                Owner: {{ venue_owner }}<br>
+
+                <br>
+                {% if venue.venue_image %}
+                    <img src="{{ venue.venue_image.url }}" alt="" width="500">
+                {% endif %}
+
+            </p>
+          </div>
+        </div>
+         <br>
+         {% if event_list %}
+        <h1>List Events</h1>
+    <br>
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Event Name</th>
+      <th scope="col">Show Link</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for event in event_list %}
+      <tr>
+         <td>
+             {{ event }}
+         </td>
+         <td>
+             <a href="{% url 'show_event' event.id %}" class="btn bnt-sm btn-secondary">Show</a>
+         </td>
+      </tr>
+
+      {% endfor %}
+
+  </tbody>
+</table>
+        {% else %}
+            <h1>That Venue Has Not Events...</h1>
+        {% endif %}
+    </center>
+
+{% endblock %}

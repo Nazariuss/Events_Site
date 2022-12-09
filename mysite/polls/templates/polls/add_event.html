@@ -1,0 +1,26 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+      <h1>Add Event</h1>
+        <br>
+
+        {% if submitted %}
+        <h2>Your Event Was Submitted Succefully</h2>
+        {% else %}
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+                <br>
+                <input type="submit" value="Submit" class="btn btn-secondary">
+            </form>
+        {% endif %}
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+              Sorry! You Must Be <a href="{% url 'login_user' %}" class="alert-link">Login</a> In To View This Page...
+            </div>
+        {% endif %}
+
+
+{% endblock %}

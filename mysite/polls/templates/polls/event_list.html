@@ -1,0 +1,48 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    <h1>Events</h1>
+    <br>
+    {% for event in event_list %}
+        {% if event.approved %}
+            <div class="card">
+              <div class="card-header">{{ event }}</div>
+              <div class="card-body">
+                <h5 class="card-title">Venue: {{ event.venue }}</h5>
+                <p class="card-text">
+                  <ul>
+                    <li>Date: {{ event.event_date }}</li>
+                    {% if event.is_past %}
+                        <li>Date till event: {{ event.days_till }}</li>
+                     {% else %}
+                        <li>Occured: Past</li>
+                     {% endif %}
+                    <li>Venue Website: {{ event.venue.web }}</li>
+                    <li>Manager: {{ event.manager }}</li>
+                    <li>Description: {{ event.description }}</li>
+                    <li>Approved: {{ event.approved }}</li>
+                    <li>Attendees: <br>
+                    {% for user in event.attendees.all %}
+                         {{ user }} <br>
+                    {% endfor %}
+                    </li>
+                  </ul>
+                </p>
+              </div>
+
+                <div class="card-footer text-muted">
+                    {% if user.is_authenticated %}
+                        {% if user == event.manager %}
+                            <a href="{% url 'update_event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+                            <a href="{% url 'delete_event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+                        {% endif %}
+                    {% else %}
+                        <div class="card-title">Sorry! You Must Be <a href="{% url 'login_user' %}" class="alert-link">Login</a></div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <br>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
